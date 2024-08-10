@@ -1,6 +1,5 @@
 /* See LICENSE file for copyright and license details. */
 
-// #include <X11/XF86keysym.h>
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
@@ -66,23 +65,33 @@ static const char *sound_decr_cmd[] = { "amixer", "set", "Master", "1%-", NULL};
 static const char *sound_toggle_cmd[] =    { "/home/eldar/wm/bash/sound_toggle.sh", NULL};
 static const char *brightness_incr_cmd[] = { "brightnessctl", "set", "5%+", NULL};
 static const char *brightness_decr_cmd[] = { "brightnessctl", "set", "5%-", NULL};
+static const char *logout_cmd[] = { "/home/eldar/wm/bash/lock_user.sh", NULL };
 
 // For pc Lenovo Y510P
+// #include <X11/XF86keysym.h>
 #define XF86XK_AudioRaiseVolume   0x1008ff13  // Fn + SoundUp
 #define XF86XK_AudioLowerVolume   0x1008ff11  // Fn + SoundDown
 #define XF86XK_MonBrightnessUp    0x1008ff02  // Fn + brightnessUp
 #define XF86XK_MonBrightnessDown  0x1008ff03  // Fn + brightnessDown
-// #define                        0xff9e      // WIn + NumIns
-// #define                        0xffb0      // WIn + Num0
+// #define                        0xff9e      // NumIns
+// #define                        0xffb0      // Num0
 
 #define XF86XK_MenuKB            0xff67
 static const Key keys[] = {
     /* modifier                     key                       function        argument */
+    // toggle bar
+    { MODKEY|ControlMask,           XF86XK_MenuKB,            togglebar,      {0} },
+
+
+    // run programm
     { ControlMask|Mod1Mask,         XK_t,                     spawn,          {.v = termcmd } },
     { MODKEY,                       XF86XK_MenuKB,            spawn,          {.v = dmenucmd } },
     // exit
-    { MODKEY,                       XK_w,                     killclient,     {0} },
+    { MODKEY,                       XK_q,                     killclient,     {0} },
     { MODKEY|ShiftMask,             XK_q,                     quit,           {0} },
+    { MODKEY,                       XK_l,                     spawn,          {.v = logout_cmd} },
+
+
     // Sound
     { 0,                            XF86XK_AudioRaiseVolume,  spawn,          {.v = sound_incr_cmd} },
     { 0,                            XF86XK_AudioLowerVolume,  spawn,          {.v = sound_decr_cmd} },
@@ -91,7 +100,14 @@ static const Key keys[] = {
     // Backlight
     { 0,                            XF86XK_MonBrightnessUp,   spawn,          {.v = brightness_incr_cmd} },
     { 0,                            XF86XK_MonBrightnessDown, spawn,          {.v = brightness_decr_cmd} },
-    // Open this TAGE
+
+
+    // go to in Monitor
+    { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+    { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+
+
+    // go to this TAGE
     TAGKEYS(                        XK_1,                      0)
     TAGKEYS(                        XK_2,                      1)
     TAGKEYS(                        XK_3,                      2)
@@ -101,27 +117,39 @@ static const Key keys[] = {
     TAGKEYS(                        XK_7,                      6)
     TAGKEYS(                        XK_8,                      7)
     TAGKEYS(                        XK_9,                      8)
-
-    { MODKEY,                       XK_b,      togglebar,      {0} },
-    { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-    { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-    { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-    { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-    { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-    { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-    { MODKEY,                       XK_Return, zoom,           {0} },
-    { MODKEY,                       XK_Tab,    view,           {0} },
-    { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-    { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-    { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-    { MODKEY,                       XK_space,  setlayout,      {0} },
-    { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+    // go to all TAGE
     { MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-    { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-    { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-    { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-    { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-    { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+    // go to last TAGE
+    { MODKEY,                       XK_Tab,    view,           {0} },
+    // change mode TAGE
+    { MODKEY|ControlMask,                       XK_Left,   setlayout,      {.v = &layouts[0]} },
+    { MODKEY|ControlMask,                       XK_Down,  setlayout,      {.v = &layouts[1]} },
+    { MODKEY|ControlMask,                       XK_Right,  setlayout,      {.v = &layouts[2]} },
+    // change on last mode TAGE
+    //{ MODKEY,                       XK_space,  setlayout,      {0} },
+
+
+
+    // toggle floating window
+    { MODKEY|ControlMask,             XK_Up,  togglefloating, {0} },
+    // go to window
+    { MODKEY,                       XK_Up,       focusstack,     {.i = -1 } },
+    { MODKEY,                       XK_Down,     focusstack,     {.i = +1 } },
+    // move window in Monitor
+    { MODKEY|ShiftMask,             XK_comma,    tagmon,         {.i = -1 } },
+    { MODKEY|ShiftMask,             XK_period,   tagmon,         {.i = +1 } },
+    // move window in TAGE
+    //      MODKEY|ShiftMask    n
+    // copy window in all TAGE
+    { MODKEY|ShiftMask,             XK_0,        tag,            {.ui = ~0 } },
+    // move window in master
+    { MODKEY,                       XK_Return,   zoom,           {0} },
+    // amount window in master
+    { MODKEY,                       XK_minus,    incnmaster,     {.i = -1 } },
+    { MODKEY,                       XK_equal,    incnmaster,     {.i = +1 } },
+    // resize window
+    { MODKEY,                       XK_Left,     setmfact,       {.f = -0.05} },
+    { MODKEY,                       XK_Right,    setmfact,       {.f = +0.05} },
 };
 
 /* button definitions */
