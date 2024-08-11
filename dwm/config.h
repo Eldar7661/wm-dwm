@@ -8,7 +8,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = {
     "monospace:size=10",
-    "Material Design Icons Desktop:style=Regular:size=8"
+    "Material Design Icons Desktop:style=Regular:size=10"
 };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
@@ -23,8 +23,19 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "󱕲", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "󰮯", "󰧞", "󰧞", "󰧞", "󰊠", "󰧞", "󰧞", "󰊠", "󰧞" };
 
+static const char *tagsel[][2] = {
+	{ "#ffff00", "#222222" },
+	{ "#ff0000", "#222222" },
+	{ "#ff7f00", "#222222" },
+	{ "#00ff00", "#222222" },
+	{ "#00ffff", "#222222" },
+	{ "#0000ff", "#222222" },
+	{ "#8f00ff", "#222222" },
+	{ "#ff0080", "#222222" },
+	{ "#008080", "#222222" },
+};
 static const Rule rules[] = {
     /* xprop(1):
      *	WM_CLASS(STRING) = instance, class
