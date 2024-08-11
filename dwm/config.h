@@ -40,18 +40,10 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
     /* symbol     arrange function */
-    { "porno"  ,       tile },    /* first entry is default */
+    { "porno",        tile },    /* first entry is default */
     { "float",        NULL },    /* no layout function means floating behavior */
     { "monocle",      monocle },
 };
-
-/* key definitions */
-#define MODKEY Mod4Mask
-#define TAGKEYS(KEY,TAG) \
-    { MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-    { MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-    { MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-    { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -67,104 +59,141 @@ static const char *brightness_incr_cmd[] = { "brightnessctl", "set", "5%+", NULL
 static const char *brightness_decr_cmd[] = { "brightnessctl", "set", "5%-", NULL};
 static const char *logout_cmd[] = { "/home/eldar/wm/bash/lock_user.sh", NULL };
 
-// For pc Lenovo Y510P
-// #include <X11/XF86keysym.h>
-#define XF86XK_AudioRaiseVolume   0x1008ff13  // Fn + SoundUp
-#define XF86XK_AudioLowerVolume   0x1008ff11  // Fn + SoundDown
-#define XF86XK_MonBrightnessUp    0x1008ff02  // Fn + brightnessUp
-#define XF86XK_MonBrightnessDown  0x1008ff03  // Fn + brightnessDown
-// #define                        0xff9e      // NumIns
-// #define                        0xffb0      // Num0
 
-#define XF86XK_MenuKB            0xff67
+// #include <X11/XF86keysym.h>
+/* key definitions */
+#define M Mod4Mask
+#define S ShiftMask
+#define C ControlMask
+#define A Mod1Mask
+// For pc Lenovo Y510P
+#define XK_sound_incr         0x1008ff13  // Fn + SoundUp
+#define XK_sound_decr         0x1008ff11  // Fn + SoundDown
+#define XK_brightness_incr    0x1008ff02  // Fn + brightnessUp
+#define XK_brightness_decr    0x1008ff03  // Fn + brightnessDown
+// #define                    0xff9e      // NumIns
+// #define                    0xffb0      // Num0
+#define XK_Menu               0xff67      // Menu
+
+#define TAGKEYS(KEY,TAG) \
+    { M,        KEY,      view,           {.ui = 1 << TAG} }, \
+    { M|S,      KEY,      tag,            {.ui = 1 << TAG} }, \
+    { M|C,      KEY,      toggleview,     {.ui = 1 << TAG} }, \
+    { M|C|S,    KEY,      toggletag,      {.ui = 1 << TAG} },
+    // view TAGE
+    // move window in TAGE
+    // toggle view TAGE
+    // copy window in TAGE
+
 static const Key keys[] = {
-    /* modifier                     key                       function        argument */
+    /* modifier   key                 function        argument */
     // toggle bar
-    { MODKEY|ControlMask,           XF86XK_MenuKB,            togglebar,      {0} },
+    { M|C,        XK_Menu,            togglebar,      {0} },
 
 
     // run programm
-    { ControlMask|Mod1Mask,         XK_t,                     spawn,          {.v = termcmd } },
-    { MODKEY,                       XF86XK_MenuKB,            spawn,          {.v = dmenucmd } },
+    { C|A,        XK_t,               spawn,          {.v = termcmd } },
+    { M,          XK_Menu,            spawn,          {.v = dmenucmd } },
     // exit
-    { MODKEY,                       XK_q,                     killclient,     {0} },
-    { MODKEY|ShiftMask,             XK_q,                     quit,           {0} },
-    { MODKEY,                       XK_l,                     spawn,          {.v = logout_cmd} },
+    { M,          XK_q,               killclient,     {0} },
+    { M|S,        XK_q,               quit,           {0} },
+    { M,          XK_l,               spawn,          {.v = logout_cmd} },
 
 
     // Sound
-    { 0,                            XF86XK_AudioRaiseVolume,  spawn,          {.v = sound_incr_cmd} },
-    { 0,                            XF86XK_AudioLowerVolume,  spawn,          {.v = sound_decr_cmd} },
-    { MODKEY,                       0xff9e,                   spawn,          {.v = sound_toggle_cmd} },
-    { MODKEY,                       0xffb0,                   spawn,          {.v = sound_toggle_cmd} },
+    { 0,          XK_sound_incr,      spawn,          {.v = sound_incr_cmd} },
+    { 0,          XK_sound_decr,      spawn,          {.v = sound_decr_cmd} },
+    { M,          0xff9e,             spawn,          {.v = sound_toggle_cmd} },
+    { M,          0xffb0,             spawn,          {.v = sound_toggle_cmd} },
     // Backlight
-    { 0,                            XF86XK_MonBrightnessUp,   spawn,          {.v = brightness_incr_cmd} },
-    { 0,                            XF86XK_MonBrightnessDown, spawn,          {.v = brightness_decr_cmd} },
+    { 0,          XK_brightness_incr, spawn,          {.v = brightness_incr_cmd} },
+    { 0,          XK_brightness_decr, spawn,          {.v = brightness_decr_cmd} },
 
 
     // go to in Monitor
-    { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-    { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+    { M,          XK_comma,           focusmon,       {.i = -1 } },
+    { M,          XK_period,          focusmon,       {.i = +1 } },
 
 
-    // go to this TAGE
-    TAGKEYS(                        XK_1,                      0)
-    TAGKEYS(                        XK_2,                      1)
-    TAGKEYS(                        XK_3,                      2)
-    TAGKEYS(                        XK_4,                      3)
-    TAGKEYS(                        XK_5,                      4)
-    TAGKEYS(                        XK_6,                      5)
-    TAGKEYS(                        XK_7,                      6)
-    TAGKEYS(                        XK_8,                      7)
-    TAGKEYS(                        XK_9,                      8)
-    // go to all TAGE
-    { MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-    // go to last TAGE
-    { MODKEY,                       XK_Tab,    view,           {0} },
+    // view TAGE
+    //M,          [0-9]
+
+    // view all TAGE
+    { M,          XK_0,               view,           {.ui = ~0 } },
+
+    // view last TAGE
+    { M,          XK_Tab,             view,           {0} },
+
+    // toggle view TAGE
+    //M|C,        [0-9]
+
     // change mode TAGE
-    { MODKEY|ControlMask,                       XK_Left,   setlayout,      {.v = &layouts[0]} },
-    { MODKEY|ControlMask,                       XK_Down,  setlayout,      {.v = &layouts[1]} },
-    { MODKEY|ControlMask,                       XK_Right,  setlayout,      {.v = &layouts[2]} },
+    { M|C,        XK_Left,            setlayout,      {.v = &layouts[0]} },
+    { M|C,        XK_Down,            setlayout,      {.v = &layouts[1]} },
+    { M|C,        XK_Right,           setlayout,      {.v = &layouts[2]} },
+
     // change on last mode TAGE
-    //{ MODKEY,                       XK_space,  setlayout,      {0} },
+    // { M,                       XK_space,  setlayout,      {0} },
 
 
 
     // toggle floating window
-    { MODKEY|ControlMask,             XK_Up,  togglefloating, {0} },
+    { M|C,        XK_Up,              togglefloating, {0} },
+
     // go to window
-    { MODKEY,                       XK_Up,       focusstack,     {.i = -1 } },
-    { MODKEY,                       XK_Down,     focusstack,     {.i = +1 } },
+    { M,          XK_Up,              focusstack,     {.i = -1 } },
+    { M,          XK_Down,            focusstack,     {.i = +1 } },
+
     // move window in Monitor
-    { MODKEY|ShiftMask,             XK_comma,    tagmon,         {.i = -1 } },
-    { MODKEY|ShiftMask,             XK_period,   tagmon,         {.i = +1 } },
+    { M|S,        XK_comma,           tagmon,         {.i = -1 } },
+    { M|S,        XK_period,          tagmon,         {.i = +1 } },
+
     // move window in TAGE
-    //      MODKEY|ShiftMask    n
+    //M|S,        [0-9]
+
+    // copy window in TAGE
+    //M|C|S       [0-9]
+
     // copy window in all TAGE
-    { MODKEY|ShiftMask,             XK_0,        tag,            {.ui = ~0 } },
+    // { M|S,        XK_0,               tag,            {.ui = ~0 } },
+
     // move window in master
-    { MODKEY,                       XK_Return,   zoom,           {0} },
+    { M,          XK_Return,          zoom,           {0} },
     // amount window in master
-    { MODKEY,                       XK_minus,    incnmaster,     {.i = -1 } },
-    { MODKEY,                       XK_equal,    incnmaster,     {.i = +1 } },
+    { M,          XK_minus,           incnmaster,     {.i = -1 } },
+    { M,          XK_equal,           incnmaster,     {.i = +1 } },
     // resize window
-    { MODKEY,                       XK_Left,     setmfact,       {.f = -0.05} },
-    { MODKEY,                       XK_Right,    setmfact,       {.f = +0.05} },
+    { M,          XK_Left,            setmfact,       {.f = -0.05} },
+    { M,          XK_Right,           setmfact,       {.f = +0.05} },
+
+    TAGKEYS(XK_1, 0)
+    TAGKEYS(XK_2, 1)
+    TAGKEYS(XK_3, 2)
+    TAGKEYS(XK_4, 3)
+    TAGKEYS(XK_5, 4)
+    TAGKEYS(XK_6, 5)
+    TAGKEYS(XK_7, 6)
+    TAGKEYS(XK_8, 7)
+    TAGKEYS(XK_9, 8)
 };
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
     /* click                event mask      button          function        argument */
-    { ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-    { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-    { ClkWinTitle,          0,              Button2,        zoom,           {0} },
-    { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
-    { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
-    { ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-    { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
-    { ClkTagBar,            0,              Button1,        view,           {0} },
-    { ClkTagBar,            0,              Button3,        toggleview,     {0} },
-    { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
-    { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+    // { ClkTagBar,            0,              Button1,        view,           {0} },                   // view tage
+    // { ClkTagBar,            0,              Button3,        toggleview,     {0} },                   // toggle view tage
+    // { ClkTagBar,            M,              Button1,        tag,            {0} },                   // move win in tage
+    // { ClkTagBar,            M,              Button3,        toggletag,      {0} },                   // copy win in tage
+
+    // { ClkLtSymbol,          0,              Button1,        setlayout,      {0} },                   // set last mode tage
+    // { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },    // set mode[2] tage
+
+    // { ClkWinTitle,          0,              Button2,        zoom,           {0} },                   // move window in master
+
+    // { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },        // run terminal
+
+    { ClkClientWin,         M,              Button1,        movemouse,      {0} },                      // move window
+    // { ClkClientWin,         M,              Button2,        togglefloating, {0} },                   // toggle floating window
+    { ClkClientWin,         M,              Button3,        resizemouse,    {0} },                      // resize window
 };
