@@ -13,7 +13,7 @@ xinput disable 15
 xrdb -merge ~/.Xresources
 
 # set background desktop
-#feh --bg-scale ~/1.png
+feh --bg-scale ~/wm/wallpaper/1.png
 
 
 
