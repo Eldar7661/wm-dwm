@@ -1,5 +1,6 @@
 #!/bin/bash
 
-./bash/install/copyXorg.sh
-./bash/install/unpackCursor.sh
+./bash/install/xorg.sh
+./bash/install/fonts.sh
+./bash/install/cursor.sh
 ./bash/install/genToogleLang.sh
