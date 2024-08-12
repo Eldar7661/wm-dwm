@@ -26,6 +26,8 @@ static const char *colors[][3]      = {
 static const char *tags[] =        { "󰧞", "󰧞", "󰧞", "󰧞", "󰧞", "󰧞", "󰧞", "󰧞", "󰧞" };
 static const char *tags_active[] = { "󰮯", "󰊠", "󰊠", "󰊠", "󰊠", "󰊠", "󰊠", "󰊠", "󰊠" };
 
+static const char *tagsalt[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
 static const char *tagsel[][2] = {
 	{ "#ffff00", "#222222" },
 	{ "#ff0000", "#222222" },
@@ -149,6 +151,10 @@ static const Key keys[] = {
 
     // change on last mode TAGE
     // { M,                       XK_space,  setlayout,      {0} },
+
+    //
+    { M|C,        XK_0,               togglealttag,   {.i = 0} },
+    { M|A,        XK_0,               togglealttag,   {.i = 1} },
 
 
 
