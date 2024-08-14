@@ -28,7 +28,10 @@ xrandr --output VGA-1 --auto --right-of eDP-1
     #~/wm/bash/bar.sh &
 
     # slstatus
-    exec slstatus &
+    # exec slstatus &
+
+    # dwmblocks
+    exec dwmblocks &
 # }
 
 exec dwm
