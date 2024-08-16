@@ -5,4 +5,6 @@ if [ $? -eq 0 ]; then
     amixer set Master mute > /dev/null
 else
     amixer set Master unmute > /dev/null
-fi 
+fi
+
+pkill -RTMIN+2 dwmblocks

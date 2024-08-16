@@ -1,0 +1,9 @@
+!#/bin/bash
+
+# Coping this file to /etc/NetworkManager/dispatcher.d/
+# this file for give a signal to dwmBlocks
+
+INTERFACE=$1
+STATUS=$2
+
+pkill -RTMIN+4 dwmblocks

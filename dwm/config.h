@@ -76,9 +76,9 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
     /* symbol     arrange function */
-    { "porno",        tile },    /* first entry is default */
-    { "float",        NULL },    /* no layout function means floating behavior */
-    { "monocle",      monocle },
+    { "[ T ]",        tile },    /* first entry is default */
+    { "[ F ]",        NULL },    /* no layout function means floating behavior */
+    { "[ M ]",      monocle },
 };
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
@@ -88,12 +88,13 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "xfce4-terminal", NULL };
-static const char *sound_incr_cmd[] = { "amixer", "set", "Master", "1%+", NULL};
-static const char *sound_decr_cmd[] = { "amixer", "set", "Master", "1%-", NULL};
-static const char *sound_toggle_cmd[] =    { "/home/eldar/wm/bash/sound_toggle.sh", NULL};
-static const char *brightness_incr_cmd[] = { "brightnessctl", "set", "5%+", NULL};
-static const char *brightness_decr_cmd[] = { "brightnessctl", "set", "5%-", NULL};
-static const char *logout_cmd[] = { "/home/eldar/wm/bash/lock_user.sh", NULL };
+
+static const char *sound_incr_cmd[] =       { "/bin/sh", "-c", "~/wm/bash/sound_volume.sh -inc", NULL};
+static const char *sound_decr_cmd[] =       { "/bin/sh", "-c", "~/wm/bash/sound_volume.sh -dec", NULL};
+static const char *sound_toggle_cmd[] =     { "/bin/sh", "-c", "~/wm/bash/sound_toggle.sh", NULL };
+static const char *brightness_incr_cmd[] =  { "/bin/sh", "-c", "~/wm/bash/brightness.sh -inc", NULL};
+static const char *brightness_decr_cmd[] =  { "/bin/sh", "-c", "~/wm/bash/brightness.sh -dec", NULL};
+static const char *logout_cmd[] =           { "/bin/sh", "-c", "~/wm/bash/lock_user.sh", NULL };
 
 
 // #include <X11/XF86keysym.h>
