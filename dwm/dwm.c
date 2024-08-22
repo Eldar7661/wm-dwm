@@ -59,7 +59,7 @@
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel }; /* color schemes */
+enum { SchemeNorm, SchemeSel, SchemeIcon, SchemeTitle }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
@@ -269,6 +269,7 @@ static Atom wmatom[WMLast], netatom[NetLast];
 static int running = 1;
 static Cur *cursor[CurLast];
 static Clr **scheme;
+static Clr **scheme_window_title;
 static Clr barclrs[256];
 static Clr **tagscheme;
 static Display *dpy;
@@ -947,10 +948,15 @@ drawbar(Monitor *m)
 
 	if ((w = m->ww - tw - x) > bh) {
 		if (m->sel) {
-			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
+			if (m->sel->isfloating) {
+				drw_setscheme(drw, scheme_window_title[SchemeIcon]);
+				int w_icon = TEXTW(prefix_window_title) / 2;
+				drw_text(drw, x, 0, w_icon, bh, 0, prefix_window_title, 0);
+				x += w_icon;
+				w -= w_icon;
+			}
+			drw_setscheme(drw, scheme_window_title[SchemeTitle]);
 			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
-			if (m->sel->isfloating)
-				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
 		} else {
 			drw_setscheme(drw, scheme[SchemeNorm]);
 			drw_rect(drw, x, 0, w, bh, 1, 1);
@@ -1837,6 +1843,9 @@ setup(void)
 	scheme = ecalloc(LENGTH(colors), sizeof(Clr *));
 	for (i = 0; i < LENGTH(colors); i++)
 		scheme[i] = drw_scm_create(drw, colors[i], 3);
+	scheme_window_title = ecalloc(LENGTH(colors_window_title), sizeof(Clr *));
+	for (i = 0; i < LENGTH(colors_window_title); i++)
+		scheme_window_title[i] = drw_scm_create(drw, colors_window_title[i], 3);
 	for (i = 0; i < LENGTH(barcolors) && i < LENGTH(barclrs); i++)
 		drw_clr_create(drw, &barclrs[i], barcolors[i]);
 	if (i == 0)

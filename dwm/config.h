@@ -11,52 +11,41 @@ static const char *fonts[]          = {
     "Material Design Icons Desktop:style=Regular:size=10"
 };
 static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-static const char *colors[][3]      = {
-    /*               fg         bg         border   */
-    [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-    [SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
-};
 
+
+const char *prefix_window_title = "󱩅";
+static const char bg_bar[] = "#222222";
+static const char *colors[][3]      = {
+    /*               fg         bg      border   */
+    [SchemeNorm] = { "#ffa500", bg_bar, "#ffffff" },
+    [SchemeSel]  = { "#8f00ff", bg_bar, "#ff0000" },
+};
+static const char *colors_window_title[][3]      = {
+    [SchemeIcon]  = { "#00ffff", bg_bar, "#ffffff" },
+    [SchemeTitle] = { "#ffffff", bg_bar, "#ff0000" },
+};
+// NO CHANGING
 static const char *barcolors[] = {
-	"#000000",
-	"#7f0000",
-	"#007f00",
-	"#7f7f00",
-	"#00007f",
-	"#7f007f",
-	"#007f7f",
-	"#cccccc",
-	"#333333",
-	"#ff0000",
-	"#00ff00",
-	"#ffff00",
-	"#0000ff",
-	"#ff00ff",
-	"#00ffff",
-	"#ffffff",
+    "#000000", "#7f0000", "#007f00", "#7f7f00",
+    "#00007f", "#7f007f", "#007f7f", "#cccccc",
+    "#333333", "#ff0000", "#00ff00", "#ffff00",
+    "#0000ff", "#ff00ff", "#00ffff", "#ffffff",
 };
 
 /* tagging */
 static const char *tags[] =        { "󰧞", "󰧞", "󰧞", "󰧞", "󰧞", "󰧞", "󰧞", "󰧞", "󰧞" };
 static const char *tags_active[] = { "󰮯", "󰊠", "󰊠", "󰊠", "󰊠", "󰊠", "󰊠", "󰊠", "󰊠" };
-
-static const char *tagsalt[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-
+static const char *tagsalt[] =     { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const char *tagsel[][2] = {
-	{ "#ffff00", "#222222" },
-	{ "#ff0000", "#222222" },
-	{ "#ff7f00", "#222222" },
-	{ "#00ff00", "#222222" },
-	{ "#00ffff", "#222222" },
-	{ "#0000ff", "#222222" },
-	{ "#8f00ff", "#222222" },
-	{ "#ff0080", "#222222" },
-	{ "#008080", "#222222" },
+	{ "#ffff00", bg_bar },
+	{ "#ff0000", bg_bar },
+	{ "#ff7f00", bg_bar },
+	{ "#00ff00", bg_bar },
+	{ "#00ffff", bg_bar },
+	{ "#0000ff", bg_bar },
+	{ "#8f00ff", bg_bar },
+	{ "#ff0080", bg_bar },
+	{ "#008080", bg_bar },
 };
 static const Rule rules[] = {
     /* xprop(1):
@@ -86,7 +75,16 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = {
+    "dmenu_run",            // run dmenu
+    "-m", dmenumon,         // Опция для выбора монитора, на котором будет отображаться dmenu
+    "-fn", dmenufont,       // set font
+    "-nb", bg_bar,          // Color Norm background
+    "-nf", "#808080",       // Color Norm font
+    "-sb", bg_bar,          // Color Sel  background
+    "-sf", "#ffffff",       // Color Sel  font
+    NULL
+};
 static const char *termcmd[]  = { "xfce4-terminal", NULL };
 
 static const char *sound_incr_cmd[] =       { "/bin/sh", "-c", "~/wm/bash/sound_volume.sh -inc", NULL};
@@ -112,16 +110,17 @@ static const char *logout_cmd[] =           { "/bin/sh", "-c", "~/wm/bash/lock_u
 // #define                    0xffb0      // Num0
 #define XK_Menu               0xff67      // Menu
 
+// {
 #define TAGKEYS(KEY,TAG) \
     { M,        KEY,      view,           {.ui = 1 << TAG} }, \
     { M|S,      KEY,      tag,            {.ui = 1 << TAG} }, \
     { M|C,      KEY,      toggleview,     {.ui = 1 << TAG} }, \
     { M|C|S,    KEY,      toggletag,      {.ui = 1 << TAG} },
-    // view TAGE
-    // move window in TAGE
-    // toggle view TAGE
-    // copy window in TAGE
-
+    // line 1: view TAGE
+    // line 2: move window in TAGE
+    // line 3: toggle view TAGE
+    // line 4: copy window in TAGE
+// }
 static const Key keys[] = {
     /* modifier   key                 function        argument */
     // toggle bar
