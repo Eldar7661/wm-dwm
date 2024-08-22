@@ -78,11 +78,25 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = {
     "dmenu_run",            // run dmenu
     "-m", dmenumon,         // Опция для выбора монитора, на котором будет отображаться dmenu
+    "-i",                   // ignore register
     "-fn", dmenufont,       // set font
     "-nb", bg_bar,          // Color Norm background
     "-nf", "#808080",       // Color Norm font
     "-sb", bg_bar,          // Color Sel  background
     "-sf", "#ffffff",       // Color Sel  font
+    "-p", "/bin:",          // title
+    NULL
+};
+static const char *clipmenu_cmd[]  = {
+    "clipmenu",             // run dmenu
+    "-m", dmenumon,         // Опция для выбора монитора, на котором будет отображаться dmenu
+    "-i",                   // ignore register
+    "-fn", dmenufont,       // set font
+    "-nb", bg_bar,          // Color Norm background
+    "-nf", "#808080",       // Color Norm font
+    "-sb", bg_bar,          // Color Sel  background
+    "-sf", "#ffffff",       // Color Sel  font
+    "-p", "Clipboard:",     // title
     NULL
 };
 static const char *termcmd[]  = { "xfce4-terminal", "--hide-menubar", "--hide-scrollbar", NULL };
@@ -94,6 +108,7 @@ static const char *sound_toggle_cmd[] =     { "/bin/sh", "-c", "~/wm/bash/sound_
 static const char *brightness_incr_cmd[] =  { "/bin/sh", "-c", "~/wm/bash/brightness.sh -inc", NULL};
 static const char *brightness_decr_cmd[] =  { "/bin/sh", "-c", "~/wm/bash/brightness.sh -dec", NULL};
 static const char *logout_cmd[] =           { "/bin/sh", "-c", "~/wm/bash/lock_user.sh", NULL };
+static const char *clipmenu_clean_cmd[] =   { "/bin/sh", "-c", "~/wm/bash/clipmenu_clean.sh", NULL };
 
 
 // #include <X11/XF86keysym.h>
@@ -132,12 +147,14 @@ static const Key keys[] = {
     { C|A,        XK_t,               spawn,          {.v = termcmd } },
     { M,          XK_Menu,            spawn,          {.v = dmenucmd } },
     { 0,          XK_Print,           spawn,          {.v = flameshot_cmd } },
+    { C,          XK_space,           spawn,          {.v = clipmenu_cmd } },
     // exit
     { M,          XK_q,               killclient,     {0} },
     { M|S,        XK_q,               quit,           {0} },
     { M,          XK_l,               spawn,          {.v = logout_cmd} },
 
-
+    // ClipBoard clean
+    { C,          XK_Delete,          spawn,          {.v = clipmenu_clean_cmd} },
     // Sound
     { 0,          XK_sound_incr,      spawn,          {.v = sound_incr_cmd} },
     { 0,          XK_sound_decr,      spawn,          {.v = sound_decr_cmd} },

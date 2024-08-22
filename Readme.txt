@@ -1,9 +1,17 @@
+{directory}_rest
+    means that this directory does not contain all the files that fit in this folder
+    [ru] означает что в этой папки не все файлы, которые подходят в эту папку
+
+
+
+
+
 all apps, utilites {
 
     make, tar, fc-cache, localectl
     numlockx, xinput, xrandr, feh
     brightnessctl, amixer
-    systemctl, bluetoothctl, dbus-send, nmcli
+    systemctl, bluetoothctl, dbus-send, nmcli, clipmenu
 
     cat, cut, grep, sed, awk, date
 
@@ -33,6 +41,7 @@ dwm used {
 
     For adjustment brightness      used utilite "brightnessctl"
     For adjustment sound volume    used utilite "amixer"
+    For history clipboard          used utilite "clipmenu"
 
 }
 
@@ -65,8 +74,6 @@ slstatus
 
 dwmblocks
 [/wm/dblocks/]$       sudo make clean install
-    Additionally, Necessarily   !!!
-$ sudo cp ~/wm/bash/dblocks/99-motitor-for-dwmblocks /etc/NetworkManager/dispatcher.d/
 
 [/wm/]$               ./install.sh
 
@@ -74,3 +81,12 @@ $ sudo cp ~/wm/bash/dblocks/99-motitor-for-dwmblocks /etc/NetworkManager/dispatc
     unpack cursor-theme to ~/.local/share/icons/
     copy font to ~/.local/share/fonts/
     added keyboard "alt + shift" for switch language "us,ru"
+
+other           Additionally, Necessarily   !!!
+
+    dwmblocks
+    $ sudo cp ~/wm/bash/dblocks/99-motitor-for-dwmblocks /etc/NetworkManager/dispatcher.d/
+
+    dwm->clipmenu
+    $ sudo cp ~/wm/bash/clipmenu/clipmenu /usr/bin/
+    $ sudo cp ~/wm/bash/clipmenu/clipmenud /usr/bin/
