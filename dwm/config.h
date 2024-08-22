@@ -85,7 +85,8 @@ static const char *dmenucmd[] = {
     "-sf", "#ffffff",       // Color Sel  font
     NULL
 };
-static const char *termcmd[]  = { "xfce4-terminal", NULL };
+static const char *termcmd[]  = { "xfce4-terminal", "--hide-menubar", "--hide-scrollbar", NULL };
+static const char *flameshot_cmd[]  = { "flameshot", "gui", NULL };
 
 static const char *sound_incr_cmd[] =       { "/bin/sh", "-c", "~/wm/bash/sound_volume.sh -inc", NULL};
 static const char *sound_decr_cmd[] =       { "/bin/sh", "-c", "~/wm/bash/sound_volume.sh -dec", NULL};
@@ -130,6 +131,7 @@ static const Key keys[] = {
     // run programm
     { C|A,        XK_t,               spawn,          {.v = termcmd } },
     { M,          XK_Menu,            spawn,          {.v = dmenucmd } },
+    { 0,          XK_Print,           spawn,          {.v = flameshot_cmd } },
     // exit
     { M,          XK_q,               killclient,     {0} },
     { M|S,        XK_q,               quit,           {0} },
