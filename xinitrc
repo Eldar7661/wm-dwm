@@ -6,7 +6,8 @@
 numlockx on
 
 # Disable TouchPad
-xinput disable 15
+TouchPad=$(xinput list | grep TouchPad | grep -oP "(?<=id=)\d+")
+xinput disable "$TouchPad"
 
 
 # for Cursor
