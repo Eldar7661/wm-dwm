@@ -2,8 +2,8 @@
 
 declare -A icons
 icons["0"]="\e[1;31m󰂲" # bluetooth off
-icons["1"]="\e[1;34m󰂯" # bluetooth on
-icons["2"]="\e[1;32m󰥰" # bluetooth connect
+icons["1"]="\e[1;33m󰂯" # bluetooth on
+icons["2"]="\e[1;33m󰥰" # bluetooth connect
 
 
 

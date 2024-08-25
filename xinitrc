@@ -38,4 +38,6 @@ xrandr --output VGA-1 --auto --right-of eDP-1
 # history Clipboard
 clipmenud &
 
+picom &
+
 exec dwm

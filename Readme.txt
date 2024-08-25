@@ -11,7 +11,8 @@ all apps, utilites {
     make, tar, fc-cache, localectl
     numlockx, xinput, xrandr, feh
     brightnessctl, amixer
-    systemctl, bluetoothctl, dbus-send, nmcli, clipmenu
+    systemctl, bluetoothctl, dbus-send, nmcli,
+    clipmenu, picom, cava
 
     cat, cut, grep, sed, awk, date
 
@@ -28,6 +29,14 @@ Installing used {
 
 }
 
+wm used {
+
+    For history clipboard          used utilite "clipmenu"
+    For transparency and blur      used         "picom"
+    For visual sound               used         "cava"
+
+}
+
 xinitrc used {
 
     For enable NumLock             used utilite "numlockx"
@@ -41,7 +50,6 @@ dwm used {
 
     For adjustment brightness      used utilite "brightnessctl"
     For adjustment sound volume    used utilite "amixer"
-    For history clipboard          used utilite "clipmenu"
 
 }
 
@@ -78,6 +86,7 @@ dwmblocks
 [/wm/]$               ./install.sh
 
     create link files ~/.xinitrc ~/.Xresources
+    create link files configs
     unpack cursor-theme to ~/.local/share/icons/
     copy font to ~/.local/share/fonts/
     added keyboard "alt + shift" for switch language "us,ru"
