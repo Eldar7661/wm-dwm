@@ -55,6 +55,7 @@ static const Rule rules[] = {
     /* class      instance    title       tags mask     isfloating   monitor */
     { "Gimp",     NULL,       NULL,       0,            1,           -1 },
     { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+    { "Xfce4-terminal", "xfce4-terminal", "Terminal - cava", 0,1,    -1 },
 };
 
 /* layout(s) */
@@ -98,6 +99,12 @@ static const char *clipmenu_cmd[]  = {
     "-sf", "#ffffff",       // Color Sel  font
     "-p", "Clipboard:",     // title
     NULL
+};
+static const char *cava_cmd[]  = {
+    "xfce4-terminal", "--hide-menubar", "--hide-scrollbar",
+    "--command", "cava",
+    "--title", "Terminal - cava",
+    "--geometry=191x16+0+724", NULL
 };
 static const char *termcmd[]  = { "xfce4-terminal", "--hide-menubar", "--hide-scrollbar", NULL };
 static const char *flameshot_cmd[]  = { "flameshot", "gui", NULL };
@@ -148,6 +155,7 @@ static const Key keys[] = {
     { M,          XK_Menu,            spawn,          {.v = dmenucmd } },
     { 0,          XK_Print,           spawn,          {.v = flameshot_cmd } },
     { C,          XK_space,           spawn,          {.v = clipmenu_cmd } },
+    { C,          XK_F5,              spawn,          {.v = cava_cmd } },
     // exit
     { M,          XK_q,               killclient,     {0} },
     { M|S,        XK_q,               quit,           {0} },
