@@ -5,11 +5,11 @@
 #sudo mv Bibata-* /usr/share/icons/    # Install to all users
 
 
-/bin/bash ~/wm/bash/install/mkdir.sh ~/.local
-/bin/bash ~/wm/bash/install/mkdir.sh ~/.local/share
 /bin/bash ~/wm/bash/install/mkdir.sh ~/.local/share/icons
 
 tar -xvf ~/wm/cursor/Bibata-Modern-Classic.tar.xz -C ~/.local/share/icons/
+/bin/bash ~/wm/bash/install/log_print.sh "Unpake cursor" "$?"
 mv ~/.local/share/icons/Bibata-Modern-Classic ~/.local/share/icons/bibata
+/bin/bash ~/wm/bash/install/log_print.sh "Rename cursor" "$?"
 
 #echo -e "Xcursor.theme: bibata\nXcursor.size: 24" >> ~/.Xresources

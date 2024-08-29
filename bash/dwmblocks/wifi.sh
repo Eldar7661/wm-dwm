@@ -1,7 +1,7 @@
 #!/bin/bash
 
-$ssid=""
-$level=""
+ssid=""
+level=""
 
 nmcli device status | grep -m 1 "^wlp8s0\s*wifi\s*connected" > /dev/null
 if [ $? -eq 0 ]; then
