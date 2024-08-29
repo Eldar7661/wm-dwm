@@ -9,7 +9,7 @@
 # Buffer to batch to avoid calling too much. Only used if CM_MAX_CLIPS >0.
 CM_MAX_CLIPS_THRESH=$(( CM_MAX_CLIPS + 10 ))
 
-# : "${CM_SELECTIONS:=clipboard primary}"     # off history "primary"
+# : "${CM_SELECTIONS:=clipboard primary}"
 : "${CM_SELECTIONS:=clipboard}"
 read -r -a selections <<< "$CM_SELECTIONS"
 
@@ -179,14 +179,14 @@ while true; do
         [[ $last_data == "$data" ]] && continue
         [[ ${last_data_sel[$selection]} == "$data" ]] && continue
 
-        if [[ $last_data && $data == "$last_data"* ]] ||
-           [[ $last_data && $data == *"$last_data" ]]; then
-            # Don't actually remove the file yet, because it might be
-            # referenced by an older entry. These will be dealt with at vacuum.
-            debug "$selection: $last_data is a possible partial of $data"
-            previous_size=$(wc -c <<< "$last_cache_file_output")
-            truncate -s -"$previous_size" "$cache_file"
-        fi
+        # if [[ $last_data && $data == "$last_data"* ]] ||
+        #    [[ $last_data && $data == *"$last_data" ]]; then
+        #     # Don't actually remove the file yet, because it might be
+        #     # referenced by an older entry. These will be dealt with at vacuum.
+        #     debug "$selection: $last_data is a possible partial of $data"
+        #     previous_size=$(wc -c <<< "$last_cache_file_output")
+        #     truncate -s -"$previous_size" "$cache_file"
+        # fi
 
         first_line=$(get_first_line "$data")
         debug "New clipboard entry on $selection selection: \"$first_line\""

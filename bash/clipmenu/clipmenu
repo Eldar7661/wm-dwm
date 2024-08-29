@@ -62,7 +62,7 @@ else
 
     # It works because the extra space is cut off
     chosen_line=$(list_clips | "$CM_LAUNCHER" "${launcher_args[@]}" "$@")
-    chosen_line=$(echo $chosen_line | cut -d' ' -f4-)
+    chosen_line=$(echo "$chosen_line" | cut -d' ' -f4- | sed 's/^ *//')
 fi
 
 [[ $chosen_line ]] || exit 1
