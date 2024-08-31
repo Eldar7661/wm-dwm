@@ -40,4 +40,7 @@ clipmenud &
 
 picom &
 
+# Sound welcome
+~/wm/bash/autostart/sound.sh &
+
 exec dwm
