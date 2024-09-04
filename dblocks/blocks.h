@@ -5,6 +5,7 @@ static const Block blocks[] = {
     {"", "~/wm/bash/dwmblocks/bluetooth.sh",   60,      0 },
     {"", "~/wm/bash/dwmblocks/network.sh",      0,      4 },
     {"", "~/wm/bash/dwmblocks/wifi.sh",        60,      4 },
+    {"", "~/wm/bash/dwmblocks/speed.sh",        6,      0 },
     {"", "~/wm/bash/dwmblocks/sound.sh",       20,      2 },
     {"", "~/wm/bash/dwmblocks/brightness.sh",   0,      3 },
     {"", "~/wm/bash/dwmblocks/battory.sh",     60,      0 },
