@@ -1,6 +1,7 @@
 //Modify this file to change what commands output to your statusbar, and recompile using the make command.
 static const Block blocks[] = {
     /*Icon*/    /*Command*/         /*Update Interval*/ /*Update Signal*/
+    {"", "~/wm/bash/dwmblocks/CPU.sh",          6,      0 },
     {"", "~/wm/bash/dwmblocks/bluetooth.sh",   60,      0 },
     {"", "~/wm/bash/dwmblocks/network.sh",      0,      4 },
     {"", "~/wm/bash/dwmblocks/wifi.sh",        60,      4 },
