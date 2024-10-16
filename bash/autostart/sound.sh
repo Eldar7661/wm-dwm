@@ -10,7 +10,11 @@ if [ $? -eq 0 ]; then
 fi
 amixer set Master 80% > /dev/null
 
-mpv ~/wm/sound/welcome.mp3
+if (( $((RANDOM % 2)) == 1 )); then
+    mpv ~/wm/sound/welcome.mp3
+else
+    mpv ~/wm/sound/church.mp3
+fi
 
 amixer set Master "$volume" > /dev/null
 if (( $mute == 1 )); then
