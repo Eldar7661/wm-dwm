@@ -77,9 +77,6 @@ dwm
 dmenu
 [/wm/dmenu/]$         sudo make clean install
 
-slstatus
-[/wm/slstatus/]$      sudo make clean install
-
 dwmblocks
 [/wm/dblocks/]$       sudo make clean install
 
