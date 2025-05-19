@@ -1,46 +1,34 @@
-#!/bin/sh
+#!/bin/bash
 
-
+# Disable TouchPad
+TouchPad=$(xinput list | grep TouchPad | grep -oP "(?<=id=)\d+")
+[ -n "$TouchPad" ] && xinput disable "$TouchPad"
 
 # Enable NumLock
 numlockx on
 
-# Disable TouchPad
-TouchPad=$(xinput list | grep TouchPad | grep -oP "(?<=id=)\d+")
-xinput disable "$TouchPad"
 
 
-# for Cursor
-xrdb -merge ~/.Xresources
-
-# set background desktop
-feh --bg-scale ~/wm/wallpaper/2.jpg
-
-
+# For Cursor
+[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
 
 # Setting Monitor
+xrandr --output eDP-1  --auto --primary
 xrandr --output HDMI-1 --auto --left-of eDP-1
-xrandr --output VGA-1 --auto --right-of eDP-1
+xrandr --output VGA-1  --auto --right-of eDP-1
 
-# Status bar {
-    # Enabling only one!!! homemade OR slstatus
+# Set background desktop
+#feh --bg-scale ~/wm/wallpaper/2.png
+feh --no-fehbg \
+    --bg-fill ~/wm/wallpaper/2.png \
+    --bg-fill ~/wm/wallpaper/5.png \
+    --bg-fill ~/wm/wallpaper/6.png \
 
-    # homemade bar
-    #~/wm/bash/bar.sh &
 
-    # slstatus
-    # exec slstatus &
 
-    # dwmblocks
-    exec dwmblocks &
-# }
-
-# history Clipboard
-clipmenud &
-
-picom &
-
-# Sound welcome
-~/wm/bash/autostart/sound.sh &
+dwmblocks &   # Status bar
+clipmenud &   # history Clipboard
+picom &       # Blur
+/bin/bash ~/wm/bash/autostart/sound.sh & # Sound welcome
 
 exec dwm

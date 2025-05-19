@@ -9,14 +9,12 @@
 all apps, utilites {
 
     make, tar, fc-cache, localectl
-    numlockx, xinput, xrandr, feh
+    dmenu, clipmenu, cava, i3lock
+    xinput, numlockx, xrdb, xrandr, feh, mpv, picom, dwmblocks
     brightnessctl, amixer
     systemctl, bluetoothctl, dbus-send, nmcli,
-    clipmenu, picom, cava
 
-    cat, cut, grep, sed, awk, date
-
-    other commands     "/bin/bash: mv, cp, mkdir, echo, ln, pkill, grep"
+    other commands     "/bin/: mv, cp, mkdir, echo, ln, pkill, cat, cut, grep, sed, awk, date"
 
 }
 
@@ -29,20 +27,25 @@ Installing used {
 
 }
 
-wm used {
+user used {
 
-    For history clipboard          used utilite "clipmenu"
-    For transparency and blur      used         "picom"
-    For visual sound               used         "cava"
+    For run program                used         "dmenu"    run from dwm
+    For history clipboard          used utilite "clipmenu" run from dwm
+    For visual sound               used         "cava"     run from dwm
+    For lock user                  used         "i3lock"   run from dwm
 
 }
 
 xinitrc used {
 
-    For enable NumLock             used utilite "numlockx"
     For disable TouchPad           used utilite "xinput"
+    For enable NumLock             used utilite "numlockx"
+    For set Cursor                 used utilite "xrdb"
     For settings Monitor           used utilite "xrandr"
     For wallpaper                  used app     "feh"
+    For sound                      used app     "mpv"
+    For transparency and blur      used utilite "picom &"
+    For status bar                 used         "dwmblocks &"
 
 }
 
