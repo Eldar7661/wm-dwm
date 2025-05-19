@@ -7,7 +7,7 @@
 
 /bin/bash ~/wm/bash/install/mkdir.sh ~/.local/share/icons
 
-tar -xvf ~/wm/cursor/Bibata-Modern-Classic.tar.xz -C ~/.local/share/icons/
+tar -xvf ~/wm/source/cursor/Bibata-Modern-Classic.tar.xz -C ~/.local/share/icons/
 /bin/bash ~/wm/bash/install/log_print.sh "Unpake cursor" "$?"
 mv ~/.local/share/icons/Bibata-Modern-Classic ~/.local/share/icons/bibata
 /bin/bash ~/wm/bash/install/log_print.sh "Rename cursor" "$?"

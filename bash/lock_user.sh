@@ -9,7 +9,7 @@
 #esac
 
 img="lock"
-i3lock -feti ~/wm/wallpaper/$img.png -b
+i3lock -feti ~/wm/source/wallpaper/$img.png -b
 
 #-f, --show-failed-attempts
 #-k, --show-keyboard-layout

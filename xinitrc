@@ -18,11 +18,11 @@ xrandr --output HDMI-1 --auto --left-of eDP-1
 xrandr --output VGA-1  --auto --right-of eDP-1
 
 # Set background desktop
-#feh --bg-scale ~/wm/wallpaper/2.png
+#feh --bg-scale ~/wm/source/wallpaper/2.png
 feh --no-fehbg \
-    --bg-fill ~/wm/wallpaper/2.png \
-    --bg-fill ~/wm/wallpaper/5.png \
-    --bg-fill ~/wm/wallpaper/6.png \
+    --bg-fill ~/wm/source/wallpaper/2.png \
+    --bg-fill ~/wm/source/wallpaper/5.png \
+    --bg-fill ~/wm/source/wallpaper/6.png \
 
 
 
