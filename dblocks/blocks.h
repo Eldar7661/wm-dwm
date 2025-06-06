@@ -3,6 +3,7 @@ static const Block blocks[] = {
     /*Icon*/    /*Command*/         /*Update Interval*/ /*Update Signal*/
     {"", "echo ' '",                            0,      0 },
     {"", "~/wm/bash/dwmblocks/CPU.sh",          6,      0 },
+    {"", "~/wm/bash/dwmblocks/RAM.sh argument", 6,      0 },
     {"", "~/wm/bash/dwmblocks/bluetooth.sh",   60,      0 },
     {"", "~/wm/bash/dwmblocks/network.sh",      0,      4 },
     {"", "~/wm/bash/dwmblocks/wifi.sh",        60,      4 },

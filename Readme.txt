@@ -8,13 +8,14 @@
 
 all apps, utilites {
 
-    make, tar, fc-cache, localectl
-    dmenu, clipmenu, cava, i3lock
-    xinput, numlockx, xrdb, xrandr, feh, mpv, picom, dwmblocks
-    brightnessctl, amixer
-    systemctl, bluetoothctl, dbus-send, nmcli,
+    Installing : make, tar, fc-cache, localectl
+    user       : dmenu, clipmenu, cava, i3lock
+    xinitrc    : xinput, numlockx, xrdb, xrandr, feh, mpv, picom, dwmblocks
+    dwm        : brightnessctl, amixer
+    dwmBlocks  : systemctl, bluetoothctl, dbus-send, nmcli, mpstat, free, pactl, ip,
 
-    other commands     "/bin/: mv, cp, mkdir, echo, ln, pkill, cat, cut, grep, sed, awk, date"
+    other commands     "/bin/: mv, cp, mkdir, echo, ln, pkill,
+                               cat, cut, grep, sed, awk, bc, eval, date"
 
 }
 
@@ -58,11 +59,14 @@ dwm used {
 
 dwmBlocks used {
 
-    For battory                    used cat
+    For battory                    used cat grep
     For bluetooth                  used systemctl, bluetoothctl, dbus-send, grep, sed
-    For Brightness                 used brightnessctl, grep
-    For Network                    used NetworkManager( nmcli ), grep
-    For Sound                      used pactl, amixer, grep, awk
+    For brightness                 used brightnessctl, grep
+    For CPU                        used mpstat awk bc
+    For network                    used NetworkManager( nmcli ), grep
+    For RAM                        used free grep bc
+    For sound                      used pactl, amixer, grep, awk
+    For speed                      used ip grep awk eval cat bc awk
     For time                       used date
     For wifi                       used NetworkManager( nmcli ), grep, cut
 
