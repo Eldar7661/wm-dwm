@@ -10,7 +10,7 @@ static const char *fonts[]          = {
     "JetBrains Mono:style=Regular:size=10",
     "Material Design Icons Desktop:style=Regular:size=10"
 };
-static const char dmenufont[]       = "monospace:size=10";
+static const char dmenufont[]       = "JetBrains Mono:style=Regular:size=10";
 
 
 const char *prefix_window_title = "󱩅";
